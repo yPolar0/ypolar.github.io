@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>yPolar's Homepage</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111; /* Altere para um preto mais claro */
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      text-align: center;
+      padding-top: 50px;
+    }
+
+    .profile-pic {
+      display: inline-block;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+      animation: pulse 3s infinite;
+    }
+
+    .profile-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      color: #fff;
+      font-size: 36px;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .social-buttons {
+      margin-top: 30px;
+      animation: slideIn 2s ease-in-out;
+    }
+
+    .social-buttons a {
+      display: inline-block;
+      margin: 10px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    .social-buttons img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .social-buttons a:hover {
+      opacity: 0.8;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 20px 0;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 24px;
+      margin-top: 50px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 20px rgba(66, 133, 244, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      0% {
+        transform: translateY(-50px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-pic">
+      <img src="https://images-ext-1.discordapp.net/external/ewgA-J1r-lYZK-EewxE9RQ-j2dqDYZU4xb0y2P-Oi00/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/802613087881920522/a_d9c60da4ceedefb4c497ede2a992c416.gif" alt="Foto de Perfil">
+    </div>
+    <h1>@yPolar</h1>
+    <div class="social-buttons">
+      <a href="https://www.roblox.com/users/1106314162/profile"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824481843499109/image-removebg-preview_1.png" alt="Botão roblox"></a>
+      <a href="https://discord.gg/users/502974588075114509/"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824482275500172/image-removebg-preview.png" alt="Botão Discord"></a>
+    </div>
+    <p>A person who uses the internet too much</p>
+    <p class="quote">"Believe in yourself and fly high!"</p>
+  </div>
+</body>
+</html>
