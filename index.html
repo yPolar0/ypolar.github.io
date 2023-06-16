@@ -122,18 +122,39 @@
       <a href="https://www.roblox.com/users/1106314162/profile"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824481843499109/image-removebg-preview_1.png" alt="Botão roblox"></a>
       <a href="https://discord.com/users/502974588075114509"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824482275500172/image-removebg-preview.png" alt="Botão Discord"></a>
     </div>
-     <script>
-    function enviarMensagemDiscord() {
+<script>
+  function setNickname(nickname) {
+    document.cookie = "nickname=" + nickname + "; expires=Thu, 1 Jan 2030 00:00:00 UTC; path=/";
+  }
+
+  function getNickname() {
+    var name = "nickname=";
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(name) === 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+    return "";
+  }
+
+  function enviarMensagemDiscord() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    var data = JSON.stringify({
-      content: "Uma pessoa acessou o site agora",
-    });
-
-    xhr.send(data);
+    var nickname = getNickname();
+    
+    if (nickname) {
+      var mensagem = "A pessoa com o nickname '" + nickname + "' acessou o site agora";
+      
+      var data = JSON.stringify({
+        content: mensagem,
+      });
+      
+      xhr.send(data);
+    }
   }
 
   window.addEventListener("load", enviarMensagemDiscord);
