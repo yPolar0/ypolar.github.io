@@ -122,6 +122,22 @@
       <a href="https://www.roblox.com/users/1106314162/profile"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824481843499109/image-removebg-preview_1.png" alt="Botão roblox"></a>
       <a href="https://discord.com/users/502974588075114509"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824482275500172/image-removebg-preview.png" alt="Botão Discord"></a>
     </div>
+     <script>
+    function enviarMensagemDiscord() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://discord.com/api/webhooks/1037908492406755379/4JTUvcwSzwravqBL1686MIaAYZqwJh5TMFIuM5sk3kRCvx5CyaMoUdg7-OXw7EPmNwv6", true);
+
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var data = JSON.stringify({
+      content: "Uma pessoa acessou o site agora",
+    });
+
+    xhr.send(data);
+  }
+
+  window.addEventListener("load", enviarMensagemDiscord);
+</script>
     <p>A person who uses the internet too much</p>
     <p class="quote">"Believe in yourself and fly high!"</p>
   </div>
