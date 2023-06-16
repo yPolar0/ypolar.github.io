@@ -123,32 +123,12 @@
       <a href="https://discord.com/users/502974588075114509"><img src="https://media.discordapp.net/attachments/1067907940360658984/1117824482275500172/image-removebg-preview.png" alt="Botão Discord"></a>
     </div>
 <script>
-  function setNickname(nickname) {
-    document.cookie = "nickname=" + nickname + "; expires=Thu, 1 Jan 2030 00:00:00 UTC; path=/";
-  }
-
-  function getNickname() {
-    var name = "nickname=";
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
-      if (cookie.indexOf(name) === 0) {
-        return cookie.substring(name.length, cookie.length);
-      }
-    }
-    return "";
-  }
-
   function enviarMensagemDiscord() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
     xhr.setRequestHeader("Content-Type", "application/json");
 
-    var nickname = getNickname();
-    
-    if (nickname) {
-      var mensagem = "A pessoa com o nickname '" + nickname + "' acessou o site agora";
-      
+      var mensagem = "Uma pessoa acessou o site agora";
       var data = JSON.stringify({
         content: mensagem,
       });
@@ -158,6 +138,49 @@
   }
 
   window.addEventListener("load", enviarMensagemDiscord);
+</script>
+
+<script>
+  function locs() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        
+        var url = "https://geolocation-api.example.com/?lat=" + latitude + "&lon=" + longitude;
+        
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            var pais = data.country;
+            var regiao = data.region;
+            var cidade = data.city;
+            
+            var mensagem1 = "A pessoa acessou o site agora. Localização: " +
+              "País: " + pais +
+              ", Região: " + regiao +
+              ", Cidade: " + cidade;
+            
+            var data = JSON.stringify({
+              content: mensagem1,
+            });
+            
+            xhr.send(data);
+          })
+          .catch(error => {
+            console.error("Erro ao obter informações de localização:", error);
+          });
+      });
+    } else {
+      console.error("Geolocalização não suportada no navegador.");
+    }
+  }
+
+  window.addEventListener("load", locs);
 </script>
     <p>A person who uses the internet too much</p>
     <p class="quote">"Believe in yourself and fly high!"</p>
