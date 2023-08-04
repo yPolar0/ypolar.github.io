@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>cat?</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="icon" href="cat.gif" />
+    </head>
+    <body>
+        <div class="hidden">
+            <img src="cat.gif" alt="cat" class="cover" />
+            <h1 class="center-over-img">cat.</h1>
+            <h1 class="top-left">ip: _____</h1>
+        </div>
+
+        <div class="hero">
+            <h1>cat?</h1>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/gh/joeymalvinni/webrtc-ip/dist/bundle.dev.js"></script>
+        <script>
+            // funny get ip lol
+            getIPs().then(res => {
+                document.querySelector('.top-left').innerHTML = "ip: " + res[0] + " (if u wanted to know)";
+            });
+
+            function geg() {
+                // funny easter geg
+                setInterval(geg, 10000);
+                setTimeout(function() {
+                    document.querySelector('.center-over-img').innerHTML = ".tac";
+                }, 2500);
+                setTimeout(function() {
+                    document.querySelector('.center-over-img').innerHTML = "˙ʇɐɔ";
+                }, 5000);
+                setTimeout(function() {
+                    document.querySelector('.center-over-img').innerHTML = "ɔɐʇ˙";
+                }, 7500);
+                setTimeout(function() {
+                    document.querySelector('.center-over-img').innerHTML = "cat.";
+                }, 10000);
+            }
+
+            // anti select
+            document.onselectstart = function() { return false; };
+            // anti right click
+            document.oncontextmenu = function() { return false; };
+            // anti drag
+            document.ondragstart = function() { return false; };
+            // main script
+            document.querySelector('.hero').addEventListener('click', function() {
+                document.querySelector('.hero').className = 'hidden';
+                document.querySelector('.hidden').className = 'hero';
+
+                this.removeEventListener('click', arguments.callee);
+
+                // loop play lol.mp3
+                var audio = new Audio('lol.mp3');
+                audio.loop = true;
+                audio.play();
+
+                document.title = "cat.";
+
+                // geg geg geg
+                geg();
+            });
+        </script>
+    </body>
+</html>
