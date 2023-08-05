@@ -1,5 +1,3 @@
-<?php
-
 function isValidKey($key) {
     $secretKey = '2kQn5nBp7GdFm0jvXZOIzYLCelWwRJhUH43iPE0T';
     return $key === $secretKey;
