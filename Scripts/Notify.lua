@@ -249,6 +249,7 @@ function prompt(title, text, closeTime, close)
 end
 
 local lib = {}
+print("------------")
 
 function lib.prompt(title, description, closeTime)
     prompt(title, description, closeTime, true)
