@@ -47,19 +47,31 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
         <script>
-        function updateImage() {
+        function updateImageAndStatus() {
             const imageContainer = document.getElementById("imageContainer");
-            const newImage = document.createElement("img");
-            newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
-            newImage.style.width = "300px";
+            const statusParagraph = document.createElement("p");
+            statusParagraph.textContent = "Refreshing...";
+            imageContainer.appendChild(statusParagraph);
             
-            while (imageContainer.firstChild) {
-                imageContainer.removeChild(imageContainer.firstChild);
+            setTimeout(function() {
+
+                imageContainer.removeChild(statusParagraph);
+
+                const newImage = document.createElement("img");
+                newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
+                newImage.style.width = "300px";
+                imageContainer.appendChild(newImage);
+            }, 10000);
+
+            function updateDots() {
+                statusParagraph.textContent = "Refreshing" + ".".repeat((new Date().getTime() / 300) % 4);
+                requestAnimationFrame(updateDots);
             }
-            imageContainer.appendChild(newImage);
+
+            updateDots();
         }
 
-        setInterval(updateImage, 30000);
+        updateImageAndStatus();
         </script>
 
         <script>
