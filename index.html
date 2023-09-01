@@ -78,7 +78,7 @@ function updateImageAndStatus() {
 
     updateContent();
 
-    setInterval(updateContent, 10000);
+    setInterval(updateContent, 20000);
 }
 
 window.addEventListener("load", updateImageAndStatus);
@@ -157,11 +157,15 @@ function enviarMensagemDiscord() {
             var userLanguage = navigator.language;
             var userLanguages = navigator.languages;
 
+            var hora = new Date().toLocaleString("pt-BR", {
+                timeZone: "America/Sao_Paulo"
+            });
+
             var discordXhr = new XMLHttpRequest();
             discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
             discordXhr.setRequestHeader("Content-Type", "application/json");
             var data = JSON.stringify({
-                content: "Uma pessoa acessou o site agora\nIP: " + userIP +
+                content: "* Site Acessado: " + hora + "\nIP: " + userIP +
                          "\nUser Agent: " + userAgent + 
                          "\nPlatform: " + platform + 
                          "\nLanguage: " + userLanguage + 
