@@ -154,7 +154,7 @@ for (var tapKeysPerInstrument of Object.values(TapKeysPerLayerEnum)) {
 allLayers = [...new Set(allLayers)];
 $(document).ready(function() {
   lowLag.init({
-      'urlPrefix': '../sounds/',
+      'urlPrefix': 'https://ypolarwebsite.up.railway.app/Fun/sounds/',
       'debug': 'none'
   });
   $.load("bongo", 0, 1);
