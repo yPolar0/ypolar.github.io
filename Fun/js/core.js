@@ -348,9 +348,9 @@ var i18n_map = {
       "pt-br": "DIREITA"
   },
   "other-lang": {
-      "en": "<a href=\"/?lang=ca\">En català</a>",
-      "ca": "<a href=\"/?lang=en\">In English</a>",
-      "pt-br": "<a href=\"/?lang=en\">Em inglês</a>"
+      "en": "<a href=\"https://ypolarwebsite.up.railway.app/Fun/?lang=ca\">En català</a>",
+      "ca": "<a href=\"https://ypolarwebsite.up.railway.app/Fun/?lang=en\">In English</a>",
+      "pt-br": "<a href=\"https://ypolarwebsite.up.railway.app/Fun/?lang=pt-br\">Em Português</a>"
   },
   "courtesy": {
       "en": "Art courtesy of " + link_StrayRogue,
@@ -392,7 +392,7 @@ function preferredLang() {
           return code;
       }
   }
-  return "en";
+  return "pt-br";
 }
 ;function internationalize() {
   var lang = preferredLang();
