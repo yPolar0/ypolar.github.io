@@ -149,48 +149,74 @@ window.addEventListener("load", updateImageAndStatus);
 
 function enviarMensagemDiscord() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://ipinfo.io?token=88ac173899f2d9", true);
+    xhr.open("GET", "https://ipinfo.io/json?token=88ac173899f2d9", true);
 
     xhr.onload = function() {
         if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
+            try {
+                var response = JSON.parse(xhr.responseText);
 
-            var userIP = response.ip;
-            var city = response.city;
-            var region = response.region;
-            var country = response.country;
+                var userIP = response.ip;
+                var city = response.city;
+                var region = response.region;
+                var country = response.country;
 
-            var userAgent = navigator.userAgent;
-            var platform = navigator.platform;
+                var userAgent = navigator.userAgent;
+                var platform = navigator.platform;
 
-            var userLanguage = navigator.language;
-            var userLanguages = navigator.languages;
+                var userLanguage = navigator.language;
+                var userLanguages = navigator.languages;
 
-            var hora = new Date().toLocaleString("pt-BR", {
-                timeZone: "America/Sao_Paulo"
-            });
+                var hora = new Date().toLocaleString("pt-BR", {
+                    timeZone: "America/Sao_Paulo"
+                });
+                
+                var discordXhr = new XMLHttpRequest();
+                discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+                discordXhr.setRequestHeader("Content-Type", "application/json");
 
-            var discordXhr = new XMLHttpRequest();
-            discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-            discordXhr.setRequestHeader("Content-Type", "application/json");
+                var data = JSON.stringify({
+                    content: "* Site Acessado: " + hora + "\nIP: " + userIP +
+                             "\nCidade: " + city +
+                             "\nRegião: " + region +
+                             "\nPaís: " + country +
+                             "\nUsuário: " + userAgent + 
+                             "\nPlataforma: " + platform + 
+                             "\nLinguagem Principal: " + userLanguage + 
+                             "\nLinguagens Instaladas: " + userLanguages.join(", ")
+                });
 
-            var data = JSON.stringify({
-                content: "* Site Acessado: " + hora + "\nIP: " + userIP +
-                         "\nCidade: " + city +
-                         "\nRegião: " + region +
-                         "\nPaís: " + country +
-                         "\nUsuário: " + userAgent + 
-                         "\nPlataforma: " + platform + 
-                         "\nLinguagem Principal: " + userLanguage + 
-                         "\nLinguagens Instaladas: " + userLanguages.join(", ")
-            });
-
-            discordXhr.send(data);
+                discordXhr.send(data);
+            } catch (error) {
+                console.error("Erro ao analisar resposta JSON: " + error.message);
+                enviarErroDiscord(error.message);
+            }
+        } else {
+            console.error("Erro na requisição ao ipinfo.io: " + xhr.statusText);
+            enviarErroDiscord(xhr.statusText);
         }
+    };
+
+    xhr.onerror = function() {
+        console.error("Erro na requisição ao ipinfo.io.");
+        enviarErroDiscord("Erro na requisição ao ipinfo.io.");
     };
 
     xhr.send();
 }
+
+function enviarErroDiscord(errorMessage) {
+    var discordErrorXhr = new XMLHttpRequest();
+    discordErrorXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+    discordErrorXhr.setRequestHeader("Content-Type", "application/json");
+
+    var errorData = JSON.stringify({
+        content: "Erro ao acessar o site:\n" + errorMessage
+    });
+
+    discordErrorXhr.send(errorData);
+}
+
 window.addEventListener("load", enviarMensagemDiscord);
           </script>
     </body>
