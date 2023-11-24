@@ -46,11 +46,14 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-        <button id="nextButton" onclick="playNextSong()">
+        <div id="musicControls">
+            <h3 id="radio">song.mp3</h3>
+            <button id="nextButton" onclick="playNextSong()">
             <i class="fas fa-arrow-right"></i>
         </button>
+    </div>          
+<script>
 
-        <script>
 function updateImageAndStatus() {
     const imageContainer = document.getElementById("imageContainer");
 
