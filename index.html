@@ -15,7 +15,7 @@
         <script>snowStorm.excludeMobile = false;</script>
         <div class="hero hidden">
             <div class="hero-content">
-                <img src="i.pinimg.com/564x/56/96/64/5696649c94df0324d84c47a3a38d21f8.jpg" alt="Foto de Perfil" class="pfp" draggable="false" width="100" height="100" id="cat?" />
+                <img src="https://cdn.discordapp.com/attachments/838852170241540157/1177730524018659375/5696649c94df0324d84c47a3a38d21f8.png?ex=65739206&is=65611d06&hm=b6e0c270acb1abe3a3fad909d4adc4f95a58fba0007ca0f36455efef14f08412&" alt="Foto de Perfil" class="pfp" draggable="false" width="100" height="100" id="cat?" />
                 <h1 class="title">yPolar</h1>
                 <p>    full stack developer // i love cheats<br></p>
                 <p>🎂 - Jun. 14th</p><br>
@@ -49,40 +49,17 @@
         <script>
 function updateImageAndStatus() {
     const imageContainer = document.getElementById("imageContainer");
-    const progressBar = document.getElementById("loading-progress");
-    const progressText = document.getElementById("loading-progress-text");
 
     function updateContent() {
+        const xhr = new XMLHttpRequest();
         const statusParagraph = document.createElement("p");
         statusParagraph.textContent = "Refreshing...";
         imageContainer.appendChild(statusParagraph);
 
-        const progress = document.createElement("progress");
-        progress.value = 0;
-        progress.max = 100;
-        progress.id = "loading-progress";
-        imageContainer.appendChild(progress);
-
-        const progressText = document.createElement("p");
-        progressText.textContent = "Loading Discord API: 0%";
-        progressText.id = "loading-progress-text";
-        imageContainer.appendChild(progressText);
-
-        const xhr = new XMLHttpRequest();
         xhr.open("GET", "https://discord.c99.nl/widget/theme-4/502974588075114509.png", true);
-
-        xhr.addEventListener("progress", function (event) {
-            if (event.lengthComputable) {
-                const percentComplete = (event.loaded / event.total) * 100;
-                progress.value = percentComplete;
-                progressText.textContent = `Loading Discord API: ${percentComplete.toFixed(2)}%`;
-            }
-        });
 
         setTimeout(function() {
             imageContainer.removeChild(statusParagraph);
-            imageContainer.removeChild(progress);
-            imageContainer.removeChild(progressText);
 
             const newImage = document.createElement("img");
             newImage.src = "https://discord.c99.nl/widget/theme-4/502974588075114509.png";
@@ -108,10 +85,6 @@ function updateImageAndStatus() {
 }
 
 window.addEventListener("load", updateImageAndStatus);
-        // const imageContainer = document.getElementById("imageContainer");
-        // const LoadingParagraph = document.createElement("p");
-        // LoadingParagraph.textContent = "Loading Discord API";
-        // imageContainer.appendChild(LoadingParagraph);
         </script>
 
         <script>
