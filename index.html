@@ -75,7 +75,7 @@ function updateImageAndStatus() {
             if (event.lengthComputable) {
                 const percentComplete = (event.loaded / event.total) * 100;
                 progress.value = percentComplete;
-                progressText.textContent = `Progress: ${percentComplete.toFixed(2)}%`;
+                progressText.textContent = `Loading Discord API: ${percentComplete.toFixed(2)}%`;
             }
         });
 
