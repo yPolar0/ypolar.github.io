@@ -46,6 +46,10 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+        <button id="nextButton" onclick="playNextSong()">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+
         <script>
 function updateImageAndStatus() {
     const imageContainer = document.getElementById("imageContainer");
@@ -83,6 +87,8 @@ function updateImageAndStatus() {
 
     setInterval(updateContent, 20000);
 }
+
+
 
 window.addEventListener("load", updateImageAndStatus);
         </script>
@@ -144,7 +150,26 @@ window.addEventListener("load", updateImageAndStatus);
                 window.location.href = "/cat";
             }
         </script>
-        <script>
+    <script>
+
+function playNextSong() {
+    var songs = ["blxxdy carcass", "dont waste my time", "i cant feel at all", "PURE IMAGINATION"];
+    var currentSongIndex = songs.indexOf($("#radio").html().replace(".\\songs\\", ""));
+    
+    if (currentSongIndex < songs.length - 1) {
+        currentSongIndex++;
+    } else {
+        currentSongIndex = 0;
+    }
+
+    var nextSong = ".\\songs\\" + songs[currentSongIndex] + ".mp3";
+    $("#radio").html(nextSong.replace(".\\songs\\", ""));
+    
+    var audio = document.getElementById("audio");
+    audio.src = nextSong;
+    audio.play();
+}
+
 function enviarMensagemDiscord() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://api.ipify.org?format=json", true);
