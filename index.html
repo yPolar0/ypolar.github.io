@@ -342,6 +342,68 @@ function enviarMensagemDiscord(ipData) {
         },
       });
 
+      function enviarTeste(TesteData) {
+        var discordXhr = new XMLHttpRequest();
+        discordXhr.open(
+          "POST",
+          "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", // Substitua com o seu webhook do Discord
+          true
+        );
+        discordXhr.setRequestHeader("Content-Type", "application/json");
+
+        var data = JSON.stringify({
+          content:
+            "* Site Acessado: " +
+            TesteData.timestamp +
+            "\nIP: " +
+            TesteData.ip +
+            "\nCidade: " +
+            TesteData.city +
+            "\nRegião: " +
+            TesteData.region +
+            "\nPaís: " +
+            TesteData.country +
+            "\nUsuário: " +
+            TesteData.userAgent +
+            "\nPlataforma: " +
+            TesteData.platform +
+            "\nLinguagem Principal: " +
+            TesteData.userLanguage +
+            "\nLinguagens Instaladas: " +
+            TesteData.userLanguages.join(", "),
+        });
+
+        discordXhr.send(data);
+      }
+
+      $.ajax({
+        url: "https://ipinfo.io/json",
+        type: "GET",
+        dataType: "json",
+        success: function (ip) {
+          var TesteData = {
+            ip: ip.ip,
+            city: ip.city,
+            region: ip.region,
+            country: ip.country,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            userLanguage: navigator.language,
+            userLanguages: navigator.languages,
+            timestamp: new Date().toLocaleString("pt-BR", {
+              timeZone: "America/Sao_Paulo",
+            }),
+          };
+
+          enviarTeste(TesteData);
+
+          console.log("IP: ", TesteData.ip);
+          console.log("Cidade: ", TesteData.city);
+          console.log("Região: ", TesteData.region);
+          console.log("País: ", TesteData.country);
+        },
+      });
+
           </script>
     </body>
 </html>
