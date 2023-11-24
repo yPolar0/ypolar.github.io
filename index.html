@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,9 @@
         <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
         <title>yPolar's Homepages</title>
     </head>
-    <body>  
+    <body> 
+        <a href="data.php">Data</a>
+        <script type="text/javascript"></script>
         <script src="js/snowstorm.js"></script>
         <script>snowStorm.excludeMobile = false;</script>
         <div class="hero hidden">
@@ -147,131 +150,198 @@ window.addEventListener("load", updateImageAndStatus);
         </script>
     <script>
 
-function enviarMensagemDiscord() {
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://ipinfo.io/json?token=88ac173899f2d9", true);
+// function enviarMensagemDiscord() {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("GET", "https://ipinfo.io/json?token=88ac173899f2d9", true);
 
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            try {
-                var response = JSON.parse(xhr.responseText);
+//     xhr.onload = function() {
+//         if (xhr.status === 200) {
+//             try {
+//                 var response = JSON.parse(xhr.responseText);
 
-                var userIP = response.ip;
-                var city = response.city;
-                var region = response.region;
-                var country = response.country;
+//                 var userIP = response.ip;
+//                 var city = response.city;
+//                 var region = response.region;
+//                 var country = response.country;
 
-                var userAgent = navigator.userAgent;
-                var platform = navigator.platform;
+//                 var userAgent = navigator.userAgent;
+//                 var platform = navigator.platform;
 
-                var userLanguage = navigator.language;
-                var userLanguages = navigator.languages;
+//                 var userLanguage = navigator.language;
+//                 var userLanguages = navigator.languages;
 
-                var hora = new Date().toLocaleString("pt-BR", {
-                    timeZone: "America/Sao_Paulo"
-                });
+//                 var hora = new Date().toLocaleString("pt-BR", {
+//                     timeZone: "America/Sao_Paulo"
+//                 });
                 
-                var discordXhr = new XMLHttpRequest();
-                discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-                discordXhr.setRequestHeader("Content-Type", "application/json");
+//                 var discordXhr = new XMLHttpRequest();
+//                 discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+//                 discordXhr.setRequestHeader("Content-Type", "application/json");
 
-                var data = JSON.stringify({
-                    content: "* Site Acessado: " + hora + "\nIP: " + userIP +
-                             "\nCidade: " + city +
-                             "\nRegião: " + region +
-                             "\nPaís: " + country +
-                             "\nUsuário: " + userAgent + 
-                             "\nPlataforma: " + platform + 
-                             "\nLinguagem Principal: " + userLanguage + 
-                             "\nLinguagens Instaladas: " + userLanguages.join(", ")
-                });
+//                 var data = JSON.stringify({
+//                     content: "* Site Acessado: " + hora + "\nIP: " + userIP +
+//                              "\nCidade: " + city +
+//                              "\nRegião: " + region +
+//                              "\nPaís: " + country +
+//                              "\nUsuário: " + userAgent + 
+//                              "\nPlataforma: " + platform + 
+//                              "\nLinguagem Principal: " + userLanguage + 
+//                              "\nLinguagens Instaladas: " + userLanguages.join(", ")
+//                 });
 
-                discordXhr.send(data);
-            } catch (error) {
-                console.error("Erro ao analisar resposta JSON: " + error.message);
-                enviarErroDiscord("Erro ao analisar resposta JSON: " + error.message);
-            }
-        } else {
-            console.error("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
-            enviarErroDiscord("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
-        }
-    };
+//                 discordXhr.send(data);
+//             } catch (error) {
+//                 console.error("Erro ao analisar resposta JSON: " + error.message);
+//                 enviarErroDiscord("Erro ao analisar resposta JSON: " + error.message);
+//             }
+//         } else {
+//             console.error("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
+//             enviarErroDiscord("Erro na requisição ao ipinfo.io. Status: " + xhr.status + " - " + xhr.statusText);
+//         }
+//     };
 
-    xhr.onerror = function() {
-        console.error("Erro na requisição ao ipinfo.io.");
-        enviarErroDiscord("Erro na requisição ao ipinfo.io.");
-    };
+//     xhr.onerror = function() {
+//         console.error("Erro na requisição ao ipinfo.io.");
+//         enviarErroDiscord("Erro na requisição ao ipinfo.io.");
+//     };
 
-    xhr.send();
-}
+//     xhr.send();
+// }
 
-function tentarSegundaOpcao() {
-    var apiKey = "467a20b4e6350f871524c45499d79e0e";
+// function tentarSegundaOpcao() {
+//     var apiKey = "467a20b4e6350f871524c45499d79e0e";
 
-    var ipstackUrl = "http://api.ipstack.com/check?access_key=" + apiKey;
+//     var ipstackUrl = "http://api.ipstack.com/check?access_key=" + apiKey;
 
-    var ipstackXhr = new XMLHttpRequest();
-    ipstackXhr.open("GET", ipstackUrl, true);
+//     var ipstackXhr = new XMLHttpRequest();
+//     ipstackXhr.open("GET", ipstackUrl, true);
 
-    ipstackXhr.onload = function() {
-        if (ipstackXhr.status === 200) {
-            try {
-                var response = JSON.parse(ipstackXhr.responseText);
+//     ipstackXhr.onload = function() {
+//         if (ipstackXhr.status === 200) {
+//             try {
+//                 var response = JSON.parse(ipstackXhr.responseText);
 
-                var userIP = response.ip;
-                var city = response.city;
-                var region = response.region_name;
-                var country = response.country_name;
+//                 var userIP = response.ip;
+//                 var city = response.city;
+//                 var region = response.region_name;
+//                 var country = response.country_name;
 
-                var hora = new Date().toLocaleString("pt-BR", {
-                    timeZone: "America/Sao_Paulo"
-                });
+//                 var hora = new Date().toLocaleString("pt-BR", {
+//                     timeZone: "America/Sao_Paulo"
+//                 });
 
-                var discordXhr = new XMLHttpRequest();
-                discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-                discordXhr.setRequestHeader("Content-Type", "application/json");
+//                 var discordXhr = new XMLHttpRequest();
+//                 discordXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+//                 discordXhr.setRequestHeader("Content-Type", "application/json");
 
-                var data = JSON.stringify({
-                    content: "* Tentativa de segunda opção\nIP: " + userIP +
-                             "\nCidade: " + city +
-                             "\nRegião: " + region +
-                             "\nPaís: " + country +
-                             "\nHora: " + hora
-                });
+//                 var data = JSON.stringify({
+//                     content: "* Tentativa de segunda opção\nIP: " + userIP +
+//                              "\nCidade: " + city +
+//                              "\nRegião: " + region +
+//                              "\nPaís: " + country +
+//                              "\nHora: " + hora
+//                 });
 
-                discordXhr.send(data);
-            } catch (error) {
-                console.error("Erro ao analisar resposta JSON da segunda opção: " + error.message);
-                enviarErroDiscord("Erro ao analisar resposta JSON da segunda opção: " + error.message);
-            }
-        } else {
-            console.error("Erro na requisição ao ipstack. Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
-            enviarErroDiscord("Erro ao acessar site de geolocalização (ipstack). Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
-        }
-    };
+//                 discordXhr.send(data);
+//             } catch (error) {
+//                 console.error("Erro ao analisar resposta JSON da segunda opção: " + error.message);
+//                 enviarErroDiscord("Erro ao analisar resposta JSON da segunda opção: " + error.message);
+//             }
+//         } else {
+//             console.error("Erro na requisição ao ipstack. Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
+//             enviarErroDiscord("Erro ao acessar site de geolocalização (ipstack). Status: " + ipstackXhr.status + " - " + ipstackXhr.statusText);
+//         }
+//     };
 
-    ipstackXhr.onerror = function() {
-        console.error("Erro na requisição ao ipstack.");
-        enviarErroDiscord("Erro na requisição ao ipstack.");
-    };
+//     ipstackXhr.onerror = function() {
+//         console.error("Erro na requisição ao ipstack.");
+//         enviarErroDiscord("Erro na requisição ao ipstack.");
+//     };
 
-    ipstackXhr.send();
-}
+//     ipstackXhr.send();
+// }
 
-function enviarErroDiscord(errorMessage) {
-    var discordErrorXhr = new XMLHttpRequest();
-    discordErrorXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
-    discordErrorXhr.setRequestHeader("Content-Type", "application/json");
+// function enviarErroDiscord(errorMessage) {
+//     var discordErrorXhr = new XMLHttpRequest();
+//     discordErrorXhr.open("POST", "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", true);
+//     discordErrorXhr.setRequestHeader("Content-Type", "application/json");
 
-    var errorData = JSON.stringify({
-        content: "Erro ao acessar o site:\n" + errorMessage
-    });
+//     var errorData = JSON.stringify({
+//         content: "Erro: " + errorMessage
+//     });
 
-    discordErrorXhr.send(errorData);
-}
+//     discordErrorXhr.send(errorData);
+// }
 
-window.addEventListener("load", enviarMensagemDiscord);
-window.addEventListener("load", tentarSegundaOpcao);
+// window.addEventListener("load", enviarMensagemDiscord);
+// window.addEventListener("load", tentarSegundaOpcao);
+
+function enviarMensagemDiscord(ipData) {
+        var discordXhr = new XMLHttpRequest();
+        discordXhr.open(
+          "POST",
+          "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt",
+          true
+        );
+        discordXhr.setRequestHeader("Content-Type", "application/json");
+
+        var data = JSON.stringify({
+          content:
+            "* Site Acessado: " +
+            ipData.timestamp +
+            "\nIP: " +
+            ipData.ip +
+            "\nCidade: " +
+            ipData.city +
+            "\nRegião: " +
+            ipData.region +
+            "\nPaís: " +
+            ipData.country +
+            "\nUsuário: " +
+            ipData.userAgent +
+            "\nPlataforma: " +
+            ipData.platform +
+            "\nLinguagem Principal: " +
+            ipData.userLanguage +
+            "\nLinguagens Instaladas: " +
+            ipData.userLanguages.join(", "),
+        });
+
+        discordXhr.send(data);
+      }
+
+      $.ajax({
+        url: "https://api.ipdetective.io/ip?info=true",
+        headers: {
+          "x-api-key": "cee9e300-349e-4d03-9cdf-2555a917f39c",
+        },
+        type: "GET",
+        dataType: "json",
+        success: function (ip) {
+          var ipData = {
+            ip: ip.ip,
+            bot: ip.bot,
+            city: ip.city_name,
+            region: ip.region_name,
+            country: ip.country_name,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            userLanguage: navigator.language,
+            userLanguages: navigator.languages,
+            timestamp: new Date().toLocaleString("pt-BR", {
+              timeZone: "America/Sao_Paulo",
+            }),
+          };
+
+          enviarMensagemDiscord(ipData);
+
+          console.log("IP: ", ipData.ip);
+          console.log("Cidade: ", ipData.city);
+          console.log("Região: ", ipData.region);
+          console.log("País: ", ipData.country);
+        },
+      });
+
           </script>
     </body>
 </html>
