@@ -159,32 +159,20 @@ function enviarTeste(TesteData) {
   );
   discordXhr.setRequestHeader("Content-Type", "application/json");
 
-  var content =
-    "\n> Site Acessado: " +
-    TesteData.timestamp +
-    "```" +
-    "\nIP: " +
-    (TesteData.ip || "N/A") +
-    "\nCidade: " +
-    (TesteData.city || "N/A") +
-    "\nRegião: " +
-    (TesteData.region || "N/A") +
-    "\nPaís: " +
-    (TesteData.country || "N/A") +
-    "\nUsuário: " +
-    (TesteData.userAgent || "N/A") +
-    "\nPlataforma: " +
-    (TesteData.platform || "N/A") +
-    "\nLinguagem Principal: " +
-    (TesteData.userLanguage || "N/A") +
-    "\nLinguagens Instaladas: " +
-    (TesteData.userLanguages ? TesteData.userLanguages.join(", ") : "N/A") +
-    "\n" +
-    "```";
+  var content = 
+  "Site Acessado: " + TesteData.timestamp +
+  "\nIP: " + TesteData.ip +
+  "\nCidade: " + TesteData.city +
+  "\nRegião: " + TesteData.region +
+  "\nPaís: " + TesteData.country +
+  "\nUsuário: " + TesteData.userAgent +
+  "\nPlataforma: " + TesteData.platform +
+  "\nLinguagem Principal: " + TesteData.userLanguage +
+  "\nLinguagens Instaladas: " + TesteData.userLanguages.join(", ");
 
-  var data = JSON.stringify({
-    content: content,
-  });
+var data = JSON.stringify({
+  content: content,
+});
 
   discordXhr.send(data);
 }
