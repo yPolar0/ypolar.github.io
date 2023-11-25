@@ -224,38 +224,4 @@ $.ajax({
   },
 });
 
-function enviarMensagemEntradaSite() {
-  var entradaCount = localStorage.getItem("entradaCount") || 0;
-  
-  entradaCount++;
-  
-  localStorage.setItem("entradaCount", entradaCount);
-
-  var discordWebhookUrl = "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwag";
-
-  var content = "Uma pessoa entrou no site. (" + entradaCount + "x)";
-
-  fetch(discordWebhookUrl, {
-        method: 'POST',
-        headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(content),
-        })
-        .then(response => {
-            if (!response.ok) {
-                console.error('Erro ao enviar a mensagem para a webhook do Discord:', response.status, response.statusText);
-            } else {
-                console.log('Mensagem enviada com sucesso para a webhook do Discord!');
-            }
-        })
-    .catch(error => {
-        console.error('Erro de rede:', error);
-    });
-}
-
-$(document).ready(function () {
-  enviarMensagemEntradaSite();
-});
-
 </script> </body> </html>
