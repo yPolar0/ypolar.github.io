@@ -400,6 +400,22 @@ window.addEventListener("load", updateImageAndStatus);
         },
       });
       
+      $.ajax({
+  url: 'https://ipinfo.io/json',
+  type: 'GET',
+  success: function(response) {
+    console.log("Informações do IP:", response);
+    console.log("IP:", response.ip);
+    console.log("Cidade:", response.city);
+    console.log("Região:", response.region);
+    console.log("País:", response.country);
+
+  },
+  error: function(error) {
+    console.error("Erro ao obter informações do IP:", error);
+  }
+});
+      
           </script>
     </body>
 </html>
