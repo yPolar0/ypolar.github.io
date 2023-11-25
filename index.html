@@ -235,22 +235,23 @@ function enviarMensagemEntradaSite() {
 
   var content = "Uma pessoa entrou no site. (" + entradaCount + "x)";
 
-  var data = JSON.stringify({
-    content: content,
-  });
-
-  $.ajax({
-    url: discordWebhookUrl,
-    type: "POST",
-    contentType: "application/json",
-    data: data,
-    success: function () {
-      console.log("Mensagem de entrada enviada para o Discord com sucesso.");
-    },
-    error: function (error) {
-      console.error("Erro ao enviar mensagem para o Discord:", error);
-    },
-  });
+  fetch(discordWebhookUrl, {
+        method: 'POST',
+        headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(content),
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('Erro ao enviar a mensagem para a webhook do Discord:', response.status, response.statusText);
+            } else {
+                console.log('Mensagem enviada com sucesso para a webhook do Discord!');
+            }
+        })
+    .catch(error => {
+        console.error('Erro de rede:', error);
+    });
 }
 
 $(document).ready(function () {
