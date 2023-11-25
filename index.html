@@ -12,7 +12,7 @@
         <title>yPolar's Homepages</title>
     </head>
     <body> 
-        <a href="data.php">Data</a>
+        <!-- <a href="data.php">Data</a> -->
         <script type="text/javascript"></script>
         <script src="js/snowstorm.js"></script>
         <script>snowStorm.excludeMobile = false;</script>
@@ -403,7 +403,13 @@ function enviarMensagemDiscord(ipData) {
           console.log("País: ", TesteData.country);
         },
       });
-
+      
           </script>
+          <script>
+            function recordData (data) {
+              console.log(data.ip, data.country)
+            }
+          </script>
+          <script src="https://ipinfo.io/json?callback=recordData"></script>
     </body>
 </html>
