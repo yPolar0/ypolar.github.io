@@ -154,7 +154,7 @@ function enviarTeste(TesteData) {
   var discordXhr = new XMLHttpRequest();
   discordXhr.open(
     "POST",
-    "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt", // Substitua com o seu webhook do Discord
+    "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt",
     true
   );
   discordXhr.setRequestHeader("Content-Type", "application/json");
@@ -222,6 +222,39 @@ $.ajax({
   error: function (error) {
     console.error("Erro ao obter informações do IP:", error);
   },
+});
+
+function enviarMensagemEntradaSite() {
+  var entradaCount = localStorage.getItem("entradaCount") || 0;
+  
+  entradaCount++;
+  
+  localStorage.setItem("entradaCount", entradaCount);
+
+  var discordWebhookUrl = "https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwag";
+
+  var content = "Uma pessoa entrou no site. (" + entradaCount + "x)";
+
+  var data = JSON.stringify({
+    content: content,
+  });
+
+  $.ajax({
+    url: discordWebhookUrl,
+    type: "POST",
+    contentType: "application/json",
+    data: data,
+    success: function () {
+      console.log("Mensagem de entrada enviada para o Discord com sucesso.");
+    },
+    error: function (error) {
+      console.error("Erro ao enviar mensagem para o Discord:", error);
+    },
+  });
+}
+
+$(document).ready(function () {
+  enviarMensagemEntradaSite();
 });
 
 </script> </body> </html>
