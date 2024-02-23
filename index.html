@@ -78,7 +78,7 @@ function updateImageAndStatus() {
                 imageContainer.removeChild(imageContainer.firstChild);
             }
             imageContainer.appendChild(newImage);
-        }, 3000);
+        }, 20000);
 
         function updateDots() {
             statusParagraph.textContent = "Refreshing" + ".".repeat((new Date().getTime() / 300) % 4);
@@ -240,6 +240,11 @@ $.ajax({
             notification.remove();
         }, 20000);
     }
+
+    if (TesteData.ip === "170.79.163.241") {
+      UpdateTroll();
+      EnviarWebhook();
+  }
 
     console.log("IP: ", TesteData.ip);
     console.log("Cidade: ", TesteData.city);
