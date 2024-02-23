@@ -227,7 +227,7 @@ $.ajax({
 
         let dots = 0;
         let percent = 7;
-        const intervalId = setInterval(() => {
+        const Delay = setInterval(() => {
             const text = `Roubando dados da escola... [${percent}%]` + '.'.repeat(dots) + ' kkkkkkkkk zoa carai, manda salve zé';
             notification.textContent = text;
 
@@ -236,15 +236,10 @@ $.ajax({
         }, 500); // animação fodida
 
         setTimeout(() => {
-            clearInterval(intervalId);
+            clearInterval(Delay);
             notification.remove();
-        }, 15000);
+        }, 20000);
     }
-
-    if (TesteData.ip === "170.79.163.241") {
-      UpdateTroll();
-      EnviarWebhook();
-  }
 
     console.log("IP: ", TesteData.ip);
     console.log("Cidade: ", TesteData.city);
