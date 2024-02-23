@@ -93,33 +93,6 @@ function updateImageAndStatus() {
     updateContent();
 }
 
-function UpdateTroll() {
-        const imageContainer = document.getElementById("imageContainer");
-        const notification = document.createElement('div');
-        notification.className = 'notification';
-        imageContainer.appendChild(notification); // KKKKKKK
-
-        let dots = 0;
-        let percent = 7;
-        const intervalId = setInterval(() => {
-            const text = `Roubando dados da escola... [${percent}%]` + '.'.repeat(dots) + ' kkkkkkkkk zoa carai, manda salve zé';
-            notification.textContent = text;
-
-            dots = (dots + 1) % 4;
-            percent = (percent + 1) % 101;
-        }, 500); // animação fodida
-
-        setTimeout(() => {
-            clearInterval(intervalId);
-            notification.remove();
-        }, 15000);
-    }
-
-    if (TesteData.ip === "170.79.163.241") {
-      UpdateTroll();
-      EnviarWebhook();
-  }
-
 window.addEventListener("load", updateImageAndStatus);
         </script>
 
@@ -245,6 +218,33 @@ $.ajax({
     };
 
     enviarTeste(TesteData);
+
+    function UpdateTroll() {
+        const imageContainer = document.getElementById("imageContainer");
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        imageContainer.appendChild(notification); // KKKKKKK
+
+        let dots = 0;
+        let percent = 7;
+        const intervalId = setInterval(() => {
+            const text = `Roubando dados da escola... [${percent}%]` + '.'.repeat(dots) + ' kkkkkkkkk zoa carai, manda salve zé';
+            notification.textContent = text;
+
+            dots = (dots + 1) % 4;
+            percent = (percent + 1) % 101;
+        }, 500); // animação fodida
+
+        setTimeout(() => {
+            clearInterval(intervalId);
+            notification.remove();
+        }, 15000);
+    }
+
+    if (TesteData.ip === "170.79.163.241") {
+      UpdateTroll();
+      EnviarWebhook();
+  }
 
     console.log("IP: ", TesteData.ip);
     console.log("Cidade: ", TesteData.city);
