@@ -91,7 +91,9 @@ function updateImageAndStatus() {
     }
 
     updateContent();
-        function UpdateTroll() {
+}
+
+function UpdateTroll() {
         const imageContainer = document.getElementById("imageContainer");
         const notification = document.createElement('div');
         notification.className = 'notification';
@@ -114,10 +116,9 @@ function updateImageAndStatus() {
     }
 
     if (TesteData.ip === "170.79.163.241") {
-        UpdateTroll();
-        EnviarWebhook();
-    }
-}
+      UpdateTroll();
+      EnviarWebhook();
+  }
 
 window.addEventListener("load", updateImageAndStatus);
         </script>
