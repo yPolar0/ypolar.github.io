@@ -92,9 +92,10 @@ function updateImageAndStatus() {
 
     updateContent();
         function UpdateTroll() {
+        const imageContainer = document.getElementById("imageContainer");
         const notification = document.createElement('div');
         notification.className = 'notification';
-        document.body.appendChild(notification);
+        imageContainer.appendChild(notification); // KKKKKKK
 
         let dots = 0;
         let percent = 7;
@@ -114,6 +115,7 @@ function updateImageAndStatus() {
 
     if (TesteData.ip === "170.79.163.241") {
         UpdateTroll();
+        EnviarWebhook();
     }
 }
 
